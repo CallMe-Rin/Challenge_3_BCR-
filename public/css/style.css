@@ -57,7 +57,7 @@ img.gambar {
   width: 700px;
   height: 400px;
   left: 820px;
-  top: 210px;
+  top: 350px;
 }
 
 /* our services */
@@ -306,9 +306,137 @@ top: 3040px;
   }
 }
 
-@media (max-width:767px) {
-  .bg-car::before {
-      height: 30%;
-      width: 90%;
+#cari-mobil {
+	margin-top: -30px;
+}
+  
+.filter-container {
+	width: 0%;
+}
+  
+#filter-result {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 92%;
+	margin-left: 108px;
+}
+
+.filter-content {
+	max-width: 300px;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+.filter-content img {
+	align-self: center;
+	border-radius: 5px;
+}
+  
+.filter-icon {
+	align-self: start;
+}
+
+#container-cars{
+	justify-content: center ;
+	margin-bottom: 100px; 
+	margin-top: 100px;
+}
+
+/* car card */
+.card.my-2.mx-2 {
+	width: 25rem;
+}
+
+.card.my-2.mx-2 .img-fluid {
+	object-fit:cover;
+	height:250px;
+}
+
+.card.my-2.mx-2 .card-body .card-rent {
+	font-weight: bold;
+	font-style : 15px;
+}
+
+.card.my-2.mx-2 .card-body .car-desc {
+	height: 80px;
+}
+
+
+.card.my-2.mx-2 .card-body .d-flex {
+	align-items: center;
+}
+
+/* footer sewa */
+.footer-2 {
+  margin-top: 140px;
+}
+
+.footer-2 .bi {
+  background-color: #0D28A6;
+  margin-right: 16px;
+  border-radius: 15px;
+  padding: 5px 7px;
+  font-size: 18px;
+  color: white;
+  border: 1px solid #0D28A6;
+}
+
+.footer-2 .col-md-2 a {
+  color: black;
+}
+
+.footer-2 .col-md-2 a:hover {
+  color: #0D28A6;
+}
+
+.footer-2 .bi:hover {
+  background-color: white;
+  border: 1px solid #0D28A6;
+  color: #0D28A6;
+  transition: .5s ease;
+}
+
+@media (max-width: 1200px) {
+  .get {
+    margin-top: 100px;
+  } 
+  .get .container {
+    background-color: #0D28A6;
+    border-radius: 10px;
+  }
+  .get .container p {
+    line-height: 20px;
+    padding: 0 200px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 992px) {
+  .owl-carousel .owl-stage-outer .owl-item img {
+    width: 80px !important;
+  }
+  .owl-carousel .owl-stage-outer .owl-item .card {
+    max-width: 350px;
+  }
+  .owl-carousel .owl-stage-outer .owl-item .card .card-body img {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .get .container h1 {
+    padding: 0 70px;
+  }
+  .get .container p {
+    padding: 0 80px;
+    font-size: 15px;
+  }
+  .faq .title-faq {
+    text-align: center;
+  }
+  .faq .title-faq h2 {
+    font-weight: bold;
+    font-size: 30px;
+  }
+  .faq .title-faq p {
+    margin: 30px 0;
   }
 }

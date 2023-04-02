@@ -1,14 +1,19 @@
 const http = require('http');
-const fs = require('fs');
-const url = require('url');
-const path = require('path');
-
 const PORT = 8000;
-const PUBLIC_PATH = '../public'
+
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
+
+const publicPath = '../public'; 
+
 const routes = {
-    "/": "index.html"
+    "/": "index.html",
+    "/cari-mobil": "sewa.html"
 }
-const mimeTypes = {
+
+// maps file extention to MIME types
+const mimeType = {
     '.ico': 'image/x-icon',
     '.html': 'text/html',
     '.js': 'text/javascript',
@@ -20,55 +25,56 @@ const mimeTypes = {
     '.mp3': 'audio/mpeg',
     '.svg': 'image/svg+xml',
     '.pdf': 'application/pdf',
-    '.doc': 'application/msword'
+    '.zip': 'application/zip',
+    '.doc': 'application/msword',
+    '.eot': 'application/vnd.ms-fontobject',
+    '.ttf': 'application/x-font-ttf',
 };
 
-function onRequest(req, res) {
+//request handler
+function onRequest(req, res){
+    // parse URL
     const parsedUrl = url.parse(req.url);
-    let pathUrl = parsedUrl.pathname;
+    let pathUrl = parsedUrl.pathname
 
+    // ROUTERS
     if (routes.hasOwnProperty(pathUrl)) pathUrl = routes[pathUrl];
 
-    const sanitizePath = path.normalize(pathUrl).replace(/^(\.\.(\/|\\|$))+/, '');
-    let pathname = path.join(__dirname, PUBLIC_PATH, sanitizePath);
-    
+    const sanitizePath = path.normalize(pathUrl).replace(/^(\.\.[\/\\])+/, '');
+    let pathname = path.join(__dirname, publicPath, sanitizePath);
+
     fs.exists(pathname, function (exist) {
-        if(!exist) {
+        if (!exist) {
             // if the file is not found, return 404
             res.statusCode = 404;
             res.end(`File ${pathname} not found!`);
             return;
         }
 
-        // if is a directory search for index file matching the extension
+        // if is a directory, then look for index.html
         if (fs.statSync(pathname).isDirectory()) {
             pathname += '/index.html';
         }
 
         // read file from file system
-        fs.readFile(pathname, function(err, data) {
-            if (err){
+        fs.readFile(pathname, function (err, data) {
+            if (err) {
                 res.statusCode = 500;
                 res.end(`Error getting the file: ${err}.`);
             } else {
-                // if the file is found, set Content-type and send data
+                // based on the URL path, extract the file extention. e.g. .js, .doc, ...
                 const ext = path.parse(pathname).ext;
-                res.setHeader('Content-type', mimeTypes[ext] || 'text/plain' );
+                // if the file is found, set Content-type and send data
+                res.setHeader('Content-type', mimeType[ext] || 'text/plain');
                 res.end(data);
             }
         });
     });
-    
-    // const htmlFile = path.join(PUBLIC_DIRECTORY, 'index.html');
-    // const html = fs.readFileSync(htmlFile, 'utf-8');
-
-    // res.setHeader('Content-Type', 'text/html');
-    // res.writeHead(200);
-    // res.end(html);
+   
 }
 
 const server = http.createServer(onRequest);
 
-server.listen(PORT, '127.0.0.1', () => {
-    console.log('Server sudah berjalan, silakan buka http://127.0.0.1:%d', PORT);
+server.listen(PORT, '127.0.0.1', ()=>{
+    console.log("Server sudah berjalan, silahkan dibuka http://127.0.0.1:%d", PORT);
 })
